@@ -12,7 +12,7 @@ classTimetableRouter.route('/')
         ClassTimetable.find({})
             .then((classTimetables) =>{
                 res.statusCode = 200;
-                res.setHeader('Content-Type')
+                res.setHeader('Content-Type','application/json')
                 res.json(classTimetables);
             },(err) =>{
                 next(err);
@@ -21,19 +21,6 @@ classTimetableRouter.route('/')
                 next(err);
             })
 
-    })
-    .get((req,res,next) => {
-        ClassTimetable.findById(req.params.cTimetableID)
-            .then((classTimetable) => {
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json(classTimetable);
-            },(err) => {
-                next(err);
-            })
-            .catch((err) => {
-                next(err);
-            })
     })
     .post((req,res,next) =>{
         ClassTimetable.create(req.body)
@@ -47,9 +34,25 @@ classTimetableRouter.route('/')
             .catch((err) =>{
                 next(err);
             })
+    });
+
+
+classTimetableRouter.route('/:id')
+    .get((req,res,next) => {
+        ClassTimetable.findById(req.params.id)
+            .then((classTimetable) => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(classTimetable);
+            },(err) => {
+                next(err);
+            })
+            .catch((err) => {
+                next(err);
+            })
     })
     .put((req, res, next) => {
-        ClassTimetable.findByIdAndUpdate(req.params.cTimetableID,{
+        ClassTimetable.findByIdAndUpdate(req.params.id,{
             $set:req.body
         },{ new :true })
             .then((classTimetable) => {
@@ -64,7 +67,7 @@ classTimetableRouter.route('/')
             })
     })
     .delete((req, res, next) => {
-        ClassTimetable.findByIdAndRemove(req.params.cTimetableID)
+        ClassTimetable.findByIdAndRemove(req.params.id)
             .then((classTimetable) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
