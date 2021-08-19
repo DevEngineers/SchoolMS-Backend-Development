@@ -22,19 +22,6 @@ usersRouter.route('/')
           })
 
     })
-    .get((req,res,next) => {
-      User.findById(req.params.userID)
-          .then((user) => {
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json');
-            res.json(user);
-          },(err) => {
-            next(err);
-          })
-          .catch((err) => {
-            next(err);
-          })
-    })
     .post((req,res,next) =>{
       User.create(req.body)
           .then((user) =>{
@@ -47,9 +34,24 @@ usersRouter.route('/')
           .catch((err) =>{
             next(err);
           })
+    });
+
+usersRouter.route('/:id')
+    .get((req,res,next) => {
+        User.findById(req.params.id)
+            .then((user) => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(user);
+            },(err) => {
+                next(err);
+            })
+            .catch((err) => {
+                next(err);
+            })
     })
     .put((req, res, next) => {
-      User.findByIdAndUpdate(req.params.userID,{
+      User.findByIdAndUpdate(req.params.id,{
         $set:req.body
       },{ new :true })
           .then((user) => {
@@ -64,7 +66,7 @@ usersRouter.route('/')
           })
     })
     .delete((req, res, next) => {
-      User.findByIdAndRemove(req.params.userID)
+      User.findByIdAndRemove(req.params.id)
           .then((user) => {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
