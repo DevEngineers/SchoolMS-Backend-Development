@@ -12,7 +12,7 @@ examTimetableRouter.route('/')
         ExamTimetable.find({})
             .then((examTimetables) =>{
                 res.statusCode = 200;
-                res.setHeader('Content-Type')
+                res.setHeader('Content-Type','application/json')
                 res.json(examTimetables);
             },(err) =>{
                 next(err);
@@ -21,19 +21,6 @@ examTimetableRouter.route('/')
                 next(err);
             })
 
-    })
-    .get((req,res,next) => {
-        ExamTimetable.findById(req.params.eTimetableID)
-            .then((examTimetable) => {
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json(examTimetable);
-            },(err) => {
-                next(err);
-            })
-            .catch((err) => {
-                next(err);
-            })
     })
     .post((req,res,next) =>{
         ExamTimetable.create(req.body)
@@ -47,9 +34,24 @@ examTimetableRouter.route('/')
             .catch((err) =>{
                 next(err);
             })
+    });
+
+examTimetableRouter.route(':/id')
+    .get((req,res,next) => {
+        ExamTimetable.findById(req.params.id)
+            .then((examTimetable) => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(examTimetable);
+            },(err) => {
+                next(err);
+            })
+            .catch((err) => {
+                next(err);
+            })
     })
     .put((req, res, next) => {
-        ExamTimetable.findByIdAndUpdate(req.params.eTimetableID,{
+        ExamTimetable.findByIdAndUpdate(req.params.id,{
             $set:req.body
         },{ new :true })
             .then((examTimetable) => {
@@ -64,7 +66,7 @@ examTimetableRouter.route('/')
             })
     })
     .delete((req, res, next) => {
-        ExamTimetable.findByIdAndRemove(req.params.eTimetableID)
+        ExamTimetable.findByIdAndRemove(req.params.id)
             .then((examTimetable) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
