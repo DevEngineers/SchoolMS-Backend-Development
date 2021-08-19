@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/usersRouter');
@@ -34,6 +35,7 @@ connect.then((db)=>{
 
 const app = express();
 
+app.use(cors());
 /**
  * view engine setup
  */
@@ -77,6 +79,7 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+  console.error(err)
 });
 
 module.exports = app;
