@@ -23,19 +23,6 @@ resultsRouter.route('/')
             })
 
     })
-    .get((req,res,next) => {
-        Result.findById(req.params.resultID)
-            .then((result) => {
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json(result);
-            },(err) => {
-                next(err);
-            })
-            .catch((err) => {
-                next(err);
-            })
-    })
     .post((req,res,next) =>{
         Result.create(req.body)
             .then((result) =>{
@@ -48,9 +35,24 @@ resultsRouter.route('/')
             .catch((err) =>{
                 next(err);
             })
+    });
+
+resultsRouter.route('/:id')
+    .get((req,res,next) => {
+        Result.findById(req.params.id)
+            .then((result) => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(result);
+            },(err) => {
+                next(err);
+            })
+            .catch((err) => {
+                next(err);
+            })
     })
     .put((req, res, next) => {
-        Result.findByIdAndUpdate(req.params.eTimetableID,{
+        Result.findByIdAndUpdate(req.params.id,{
             $set:req.body
         },{ new :true })
             .then((result) => {
@@ -65,7 +67,7 @@ resultsRouter.route('/')
             })
     })
     .delete((req, res, next) => {
-        Result.findByIdAndRemove(req.params.eTimetableID)
+        Result.findByIdAndRemove(req.params.id)
             .then((result) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
