@@ -7,6 +7,16 @@ const classSchema = new Schema({
         required:true,
         default:''
     },
+    classType:{
+        type:String,
+        required:true,
+        default:''
+    },
+    teacherId:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'teachers'
+    },
 },{
     timestamps:true
 })
