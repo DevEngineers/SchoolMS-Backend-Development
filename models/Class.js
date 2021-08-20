@@ -11,6 +11,6 @@ const classSchema = new Schema({
     timestamps:true
 })
 
-let ClassSchema = mongoose.model('ClassSchema',classSchema);
+let Class = mongoose.model('Class',classSchema);
 
-module.exports = ClassSchema;
+module.exports = Class;
