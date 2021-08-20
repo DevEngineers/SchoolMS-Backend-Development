@@ -7,6 +7,24 @@ const attendanceSchema = new Schema({
         required:true,
         default:''
     },
+    classType:{
+        type:String,
+        required:true,
+        default:''
+    },
+    date:{
+        type:Date,
+        required:true
+    },
+    student:{
+        type:[String],
+        required:true,
+        default:['']
+    },
+    attendance:{
+        type:[Boolean],
+        required:true,
+    },
 },{
     timestamps:true
 })
