@@ -36,7 +36,7 @@ examTimetableRouter.route('/')
             })
     });
 
-examTimetableRouter.route(':/id')
+examTimetableRouter.route('/:id')
     .get((req,res,next) => {
         ExamTimetable.findById(req.params.id)
             .then((examTimetable) => {
