@@ -40,6 +40,7 @@ classTimetableRouter.route('/')
 classTimetableRouter.route('/:id')
     .get((req,res,next) => {
         ClassTimetable.findById(req.params.id)
+            .populate('class')
             .then((classTimetable) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
