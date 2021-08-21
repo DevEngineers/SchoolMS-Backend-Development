@@ -13,7 +13,7 @@ resultsRouter.route('/')
         Result.find({})
             .then((results) =>{
                 res.statusCode = 200;
-                res.setHeader('Content-Type')
+                res.setHeader('Content-Type','application/json')
                 res.json(results);
             },(err) =>{
                 next(err);

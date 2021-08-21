@@ -56,7 +56,7 @@ classTimetableRouter.route('/:id')
             $set:req.body
         },{ new :true })
             .then((classTimetable) => {
-                res.statusCode = 200;
+                res.satusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.json(classTimetable);
             },(err) => {

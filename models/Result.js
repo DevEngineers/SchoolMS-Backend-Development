@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const resultSchema = new Schema({
     class:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
         required:true,
-        default:''
+        ref:'Class'
     },
     classType:{
         type:String,
@@ -23,9 +23,9 @@ const resultSchema = new Schema({
         default:''
     },
     studentID:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
         required:true,
-        default:''
+        ref:'Student'
     },
     grades:{
         type:[String],
