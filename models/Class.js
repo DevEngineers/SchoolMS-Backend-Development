@@ -12,7 +12,7 @@ const classSchema = new Schema({
         required:true,
         default:''
     },
-    teacherId:{
+    teacher:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
         ref:'teachers'
