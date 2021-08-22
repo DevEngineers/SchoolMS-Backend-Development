@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const classTypeSchema = new Schema({
     name:{
         type:String,
-        required:''
+        required:'',
+        default:'none'
     }
 },{
     timestamps:true
