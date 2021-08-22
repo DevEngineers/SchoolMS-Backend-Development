@@ -8,8 +8,8 @@ classTimetableRouter.use(bodyParser.json());
 
 
 classTimetableRouter.route('/')
-    .get((req,res,next) =>{
-        ClassTimetable.find({})
+    .get( async (req,res,next) =>{
+         await ClassTimetable.find({})
             .then((classTimetables) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
@@ -22,8 +22,8 @@ classTimetableRouter.route('/')
             })
 
     })
-    .post((req,res,next) =>{
-        ClassTimetable.create(req.body)
+    .post(async (req,res,next) =>{
+        await ClassTimetable.create(req.body)
             .then((classTimetable) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -38,8 +38,8 @@ classTimetableRouter.route('/')
 
 
 classTimetableRouter.route('/:id')
-    .get((req,res,next) => {
-        ClassTimetable.findById(req.params.id)
+    .get(async (req,res,next) => {
+         await ClassTimetable.findById(req.params.id)
             .populate('class')
             .then((classTimetable) => {
                 res.statusCode = 200;
@@ -52,8 +52,8 @@ classTimetableRouter.route('/:id')
                 next(err);
             })
     })
-    .put((req, res, next) => {
-        ClassTimetable.findByIdAndUpdate(req.params.id,{
+    .put(async (req, res, next) => {
+        await ClassTimetable.findByIdAndUpdate(req.params.id,{
             $set:req.body
         },{ new :true })
             .then((classTimetable) => {
@@ -67,8 +67,8 @@ classTimetableRouter.route('/:id')
                 next(err);
             })
     })
-    .delete((req, res, next) => {
-        ClassTimetable.findByIdAndRemove(req.params.id)
+    .delete(async (req, res, next) => {
+        await ClassTimetable.findByIdAndRemove(req.params.id)
             .then((classTimetable) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');

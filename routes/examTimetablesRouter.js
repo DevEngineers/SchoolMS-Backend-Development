@@ -8,8 +8,8 @@ examTimetableRouter.use(bodyParser.json());
 
 
 examTimetableRouter.route('/')
-    .get((req,res,next) =>{
-        ExamTimetable.find({})
+    .get(async (req,res,next) =>{
+        await ExamTimetable.find({})
             .then((examTimetables) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
@@ -22,8 +22,8 @@ examTimetableRouter.route('/')
             })
 
     })
-    .post((req,res,next) =>{
-        ExamTimetable.create(req.body)
+    .post(async (req,res,next) =>{
+        await ExamTimetable.create(req.body)
             .then((examTimetable) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -37,8 +37,8 @@ examTimetableRouter.route('/')
     });
 
 examTimetableRouter.route('/:id')
-    .get((req,res,next) => {
-        ExamTimetable.findById(req.params.id)
+    .get(async (req,res,next) => {
+        await ExamTimetable.findById(req.params.id)
             .then((examTimetable) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -50,8 +50,8 @@ examTimetableRouter.route('/:id')
                 next(err);
             })
     })
-    .put((req, res, next) => {
-        ExamTimetable.findByIdAndUpdate(req.params.id,{
+    .put(async (req, res, next) => {
+        await ExamTimetable.findByIdAndUpdate(req.params.id,{
             $set:req.body
         },{ new :true })
             .then((examTimetable) => {
@@ -65,8 +65,8 @@ examTimetableRouter.route('/:id')
                 next(err);
             })
     })
-    .delete((req, res, next) => {
-        ExamTimetable.findByIdAndRemove(req.params.id)
+    .delete(async (req, res, next) => {
+        await ExamTimetable.findByIdAndRemove(req.params.id)
             .then((examTimetable) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');

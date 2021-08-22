@@ -9,8 +9,8 @@ resultsRouter.use(bodyParser.json());
 
 
 resultsRouter.route('/')
-    .get((req,res,next) =>{
-        Result.find({})
+    .get(async (req,res,next) =>{
+        await Result.find({})
             .then((results) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
@@ -23,8 +23,8 @@ resultsRouter.route('/')
             })
 
     })
-    .post((req,res,next) =>{
-        Result.create(req.body)
+    .post(async (req,res,next) =>{
+        await Result.create(req.body)
             .then((result) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -38,8 +38,8 @@ resultsRouter.route('/')
     });
 
 resultsRouter.route('/:id')
-    .get((req,res,next) => {
-        Result.findById(req.params.id)
+    .get(async (req,res,next) => {
+        await Result.findById(req.params.id)
             .then((result) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -51,8 +51,8 @@ resultsRouter.route('/:id')
                 next(err);
             })
     })
-    .put((req, res, next) => {
-        Result.findByIdAndUpdate(req.params.id,{
+    .put(async (req, res, next) => {
+        await Result.findByIdAndUpdate(req.params.id,{
             $set:req.body
         },{ new :true })
             .then((result) => {
@@ -66,8 +66,8 @@ resultsRouter.route('/:id')
                 next(err);
             })
     })
-    .delete((req, res, next) => {
-        Result.findByIdAndRemove(req.params.id)
+    .delete(async (req, res, next) => {
+        await Result.findByIdAndRemove(req.params.id)
             .then((result) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
