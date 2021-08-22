@@ -16,6 +16,7 @@ const resultsRouter = require('./routes/resultsRouter');
 const studentsRouter = require('./routes/studentsRouter');
 const subjectsRouter = require('./routes/subjectsRouter');
 const teachersRouter = require('./routes/teachersRouter');
+const classTypeRouter = require("./routes/classTypeRouter");
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -52,6 +53,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/attendances', attendanceRouter);
 app.use('/class', classRouter);
+app.use('/classType', classTypeRouter);
 app.use('/classTimetables', classTimetablesRouter);
 app.use('/examTimetables', examTimetableRouter);
 app.use('/fees', feesRouter);
