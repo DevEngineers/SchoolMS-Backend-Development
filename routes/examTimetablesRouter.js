@@ -10,6 +10,8 @@ examTimetableRouter.use(bodyParser.json());
 examTimetableRouter.route('/')
     .get(async (req,res,next) =>{
         await ExamTimetable.find({})
+            .populate('class')
+            .populate('classType')
             .then((examTimetables) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
@@ -40,6 +42,7 @@ examTimetableRouter.route('/:id')
     .get(async (req,res,next) => {
         await ExamTimetable.findById(req.params.id)
             .populate('class')
+            .populate('classType')
             .then((examTimetable) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');

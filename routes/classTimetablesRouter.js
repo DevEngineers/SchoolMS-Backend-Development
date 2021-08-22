@@ -10,6 +10,8 @@ classTimetableRouter.use(bodyParser.json());
 classTimetableRouter.route('/')
     .get( async (req,res,next) =>{
          await ClassTimetable.find({})
+             .populate('class')
+             .populate('classType')
             .then((classTimetables) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
@@ -41,6 +43,7 @@ classTimetableRouter.route('/:id')
     .get(async (req,res,next) => {
          await ClassTimetable.findById(req.params.id)
             .populate('class')
+            .populate('classType')
             .then((classTimetable) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');

@@ -10,7 +10,7 @@ const classTimetableSchema = new Schema({
     classType:{
         type:String,
         required:true,
-        default:''
+        ref:'ClassType'
     },
     year:{
         type:String,
