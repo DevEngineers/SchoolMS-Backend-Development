@@ -7,11 +7,6 @@ const examTimetableSchema = new Schema({
         required:true,
         ref:'Class'
     },
-    classType:{
-        type:String,
-        required:true,
-        ref:'ClassType'
-    },
     year:{
         type:String,
         required:true,
