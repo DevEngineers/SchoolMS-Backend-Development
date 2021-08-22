@@ -10,7 +10,7 @@ const examTimetableSchema = new Schema({
     year:{
         type:String,
         required:true,
-        default:''
+        default:'n'
     },
     term:{
         type:String,
