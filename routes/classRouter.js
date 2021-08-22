@@ -1,14 +1,15 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const Class = require("../models/Class");
+const ClassType = require("../models/ClassType");
 
 const classRouter = express.Router();
 
 classRouter.use(bodyParser.json());
 
 classRouter.route('/')
-    .get((req,res,next) =>{
-        Class.find({})
+    .get(async (req,res,next) =>{
+        await Class.find({})
             .then((Class) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
@@ -21,8 +22,8 @@ classRouter.route('/')
             })
 
     })
-    .post((req,res,next) =>{
-        Class.create(req.body)
+    .post(async (req,res,next) =>{
+        await Class.create(req.body)
             .then((Class) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -36,8 +37,8 @@ classRouter.route('/')
     });
 
 classRouter.route('/:id')
-    .get((req,res,next) => {
-        Class.findById(req.params.id)
+    .get(async (req,res,next) => {
+        await Class.findById(req.params.id)
             .then((Class) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -49,8 +50,8 @@ classRouter.route('/:id')
                 next(err);
             })
     })
-    .put((req, res, next) => {
-        Class.findByIdAndUpdate(req.params.id,{
+    .put(async (req, res, next) => {
+        await Class.findByIdAndUpdate(req.params.id,{
             $set:req.body
         },{ new :true })
             .then((Class) => {
@@ -64,8 +65,8 @@ classRouter.route('/:id')
                 next(err);
             })
     })
-    .delete((req, res, next) => {
-        Class.findByIdAndRemove(req.params.id)
+    .delete(async (req, res, next) => {
+        await Class.findByIdAndRemove(req.params.id)
             .then((Class) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -77,6 +78,24 @@ classRouter.route('/:id')
                 next(err);
             })
     });
+
+classRouter.route('/classType')
+    .get(async (req,res,next) =>{
+        await ClassType.find({})
+            .then((Class) =>{
+                res.statusCode = 200;
+                res.setHeader('Content-Type','application/json')
+                res.json(Class);
+            },(err) =>{
+                next(err);
+            })
+            .catch((err) =>{
+                next(err);
+            })
+
+    })
+
+
 
 
 module.exports = classRouter;
