@@ -11,6 +11,8 @@ resultsRouter.use(bodyParser.json());
 resultsRouter.route('/')
     .get(async (req,res,next) =>{
         await Result.find({})
+            .populate('class')
+            .populate('classType')
             .then((results) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
@@ -40,6 +42,8 @@ resultsRouter.route('/')
 resultsRouter.route('/:id')
     .get(async (req,res,next) => {
         await Result.findById(req.params.id)
+            .populate('class')
+            .populate('classType')
             .then((result) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
