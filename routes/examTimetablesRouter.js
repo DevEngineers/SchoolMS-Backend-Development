@@ -39,6 +39,7 @@ examTimetableRouter.route('/')
 examTimetableRouter.route('/:id')
     .get(async (req,res,next) => {
         await ExamTimetable.findById(req.params.id)
+            .populate('class')
             .then((examTimetable) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
