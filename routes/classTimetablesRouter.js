@@ -2,6 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ClassTimetable = require('../models/ClassTimetable');
 
+/**
+ * @author : M.N.M Akeel
+ * Registration Number : IT19153414
+ */
+
 const classTimetableRouter = express.Router();
 
 classTimetableRouter.use(bodyParser.json());

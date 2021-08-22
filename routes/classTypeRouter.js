@@ -2,6 +2,11 @@ const express = require('express');
 const bodyParser = require("body-parser");
 const ClassType = require("../models/ClassType");
 
+/**
+ * @author : M.N.M Akeel
+ * Registration Number : IT19153414
+ */
+
 const classTypeRouter = express.Router();
 
 classTypeRouter.use(bodyParser.json());
