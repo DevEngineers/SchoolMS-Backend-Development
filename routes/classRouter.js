@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const Class = require("../models/Class");
-const ClassType = require("../models/ClassType");
 
 const classRouter = express.Router();
 
@@ -78,24 +77,5 @@ classRouter.route('/:id')
                 next(err);
             })
     });
-
-classRouter.route('/classType')
-    .get(async (req,res,next) =>{
-        await ClassType.find({})
-            .then((Class) =>{
-                res.statusCode = 200;
-                res.setHeader('Content-Type','application/json')
-                res.json(Class);
-            },(err) =>{
-                next(err);
-            })
-            .catch((err) =>{
-                next(err);
-            })
-
-    })
-
-
-
 
 module.exports = classRouter;
