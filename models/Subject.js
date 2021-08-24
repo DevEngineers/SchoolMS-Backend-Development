@@ -8,14 +8,20 @@ const subjectSchema = new Schema({
         default:''
     },
     class:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:String,
         required:true,
-        ref:'classes'
+        default:''
+        // type:mongoose.Schema.Types.ObjectId,
+        // required:true,
+        // ref:'classes'
     },
     teacher:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:String,
         required:true,
-        ref:'teachers'
+        default:''
+        // type:mongoose.Schema.Types.ObjectId,
+        // required:true,
+        // ref:'teachers'
     },
 },{
     timestamps:true
