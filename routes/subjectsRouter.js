@@ -7,8 +7,10 @@ const subjectsRouter = express.Router();
 subjectsRouter.use(bodyParser.json());
 
 subjectsRouter.route('/')
-    .get((req,res,next) =>{
-        Subject.find({})
+    .get(async (req,res,next) =>{
+        await Subject.find({})
+            .populate('teacher')
+            .populate('class')
             .then((subject) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
@@ -21,8 +23,8 @@ subjectsRouter.route('/')
             })
 
     })
-    .post((req,res,next) =>{
-        Subject.create(req.body)
+    .post(async(req,res,next) =>{
+        await Subject.create(req.body)
             .then((subject) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -36,8 +38,10 @@ subjectsRouter.route('/')
     });
 
 subjectsRouter.route('/:id')
-    .get((req,res,next) => {
-        Subject.findById(req.params.id)
+    .get(async (req,res,next) => {
+        await Subject.findById(req.params.id)
+            .populate('teacher')
+            .populate('class')
             .then((subject) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -49,8 +53,8 @@ subjectsRouter.route('/:id')
                 next(err);
             })
     })
-    .put((req, res, next) => {
-        Subject.findByIdAndUpdate(req.params.id,{
+    .put(async (req, res, next) => {
+        await Subject.findByIdAndUpdate(req.params.id,{
             $set:req.body
         },{ new :true })
             .then((subject) => {
@@ -64,8 +68,8 @@ subjectsRouter.route('/:id')
                 next(err);
             })
     })
-    .delete((req, res, next) => {
-        Subject.findByIdAndRemove(req.params.id)
+    .delete(async (req, res, next) => {
+        await Subject.findByIdAndRemove(req.params.id)
             .then((subject) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
