@@ -10,7 +10,7 @@ subjectsRouter.route('/')
     .get(async (req,res,next) =>{
         await Subject.find({})
             // .populate('teachers')
-            // .populate('classes')
+            .populate('classes')
             .then((subject) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
@@ -41,7 +41,7 @@ subjectsRouter.route('/:id')
     .get(async (req,res,next) => {
         await Subject.findById(req.params.id)
             // .populate('teachers')
-            // .populate('classes')
+            .populate('classes')
             .then((subject) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
