@@ -9,7 +9,7 @@ attendanceRouter.use(bodyParser.json());
 attendanceRouter.route('/')
     .get(async (req,res,next) =>{
         await Attendance.find({})
-            .populate('student')
+            // .populate('student')
             .then((attendance) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
@@ -39,7 +39,7 @@ attendanceRouter.route('/')
 attendanceRouter.route('/:id')
     .get(async (req,res,next) => {
         await Attendance.findById(req.params.id)
-            .populate('student')
+            // .populate('student')
             .then((attendance) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
