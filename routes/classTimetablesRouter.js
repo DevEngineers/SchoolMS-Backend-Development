@@ -30,11 +30,27 @@ classTimetableRouter.route('/')
 
     })
     .post(async (req,res,next) =>{
-        await ClassTimetable.create(req.body)
+        let timetable = req.body
+        let newArrayObject = createSubjectObject(timetable)
+        let newTimetableOb = changeArrayValues(timetable)
+
+        await ClassTimetable.create(newTimetableOb)
             .then((classTimetable) =>{
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json(classTimetable);
+                console.log(classTimetable)
+                    ClassTimetable.updateOne({_id:classTimetable._id},
+                        {$set:{
+                            monday:newArrayObject.monday,
+                                tuesday:newArrayObject.tuesday,
+                                wednesday:newArrayObject.wednesday,
+                                thursday:newArrayObject.thursday,
+                                friday:newArrayObject.friday
+                        }
+                    },{useFindAndModify:false})
+                    .then((classTimetable) =>{
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.json(classTimetable);
+                    })
             },(err) =>{
                 next(err);
             })
@@ -61,13 +77,28 @@ classTimetableRouter.route('/:id')
             })
     })
     .put(async (req, res, next) => {
+        let timetable = req.body
+        let newArrayObject = createSubjectObject(timetable)
+        let newTimetableOb = changeArrayValues(timetable)
+
         await ClassTimetable.findByIdAndUpdate(req.params.id,{
-            $set:req.body
+            $set:newTimetableOb
         },{ new :true })
             .then((classTimetable) => {
-                res.satusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json(classTimetable);
+                ClassTimetable.updateOne({_id:classTimetable._id},
+                    {$set:{
+                            monday:newArrayObject.monday,
+                            tuesday:newArrayObject.tuesday,
+                            wednesday:newArrayObject.wednesday,
+                            thursday:newArrayObject.thursday,
+                            friday:newArrayObject.friday
+                        }
+                    },{useFindAndModify:false})
+                    .then((classTimetable) =>{
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.json(classTimetable);
+                    })
             },(err) => {
                 next(err);
             })
@@ -88,5 +119,27 @@ classTimetableRouter.route('/:id')
                 next(err);
             })
     });
+
+
+function changeArrayValues(timetable) {
+    timetable.monday = ['']
+    timetable.tuesday = ['']
+    timetable.wednesday = ['']
+    timetable.thursday = ['']
+    timetable.friday = ['']
+
+    return timetable;
+}
+
+function createSubjectObject(timetable) {
+    let subjects ={
+        monday:timetable.monday,
+        tuesday:timetable.tuesday,
+        wednesday:timetable.wednesday,
+        thursday:timetable.thursday,
+        friday:timetable.friday
+    }
+    return subjects;
+}
 
 module.exports = classTimetableRouter;
