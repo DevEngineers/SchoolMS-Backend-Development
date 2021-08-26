@@ -9,6 +9,8 @@ classRouter.use(bodyParser.json());
 classRouter.route('/')
     .get(async (req,res,next) =>{
         await Class.find({})
+            // .populate('teachers')
+            // .populate('classType')
             .then((Class) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
@@ -38,6 +40,8 @@ classRouter.route('/')
 classRouter.route('/:id')
     .get(async (req,res,next) => {
         await Class.findById(req.params.id)
+            // .populate('teachers')
+            // .populate('classType')
             .then((Class) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');

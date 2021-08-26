@@ -7,8 +7,9 @@ const attendanceRouter = express.Router();
 attendanceRouter.use(bodyParser.json());
 
 attendanceRouter.route('/')
-    .get((req,res,next) =>{
-        Attendance.find({})
+    .get(async (req,res,next) =>{
+        await Attendance.find({})
+            // .populate('student')
             .then((attendance) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
@@ -21,8 +22,8 @@ attendanceRouter.route('/')
             })
 
     })
-    .post((req,res,next) =>{
-        Attendance.create(req.body)
+    .post(async (req,res,next) =>{
+        await Attendance.create(req.body)
             .then((attendance) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -36,8 +37,9 @@ attendanceRouter.route('/')
     });
 
 attendanceRouter.route('/:id')
-    .get((req,res,next) => {
-        Attendance.findById(req.params.id)
+    .get(async (req,res,next) => {
+        await Attendance.findById(req.params.id)
+            // .populate('student')
             .then((attendance) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -49,8 +51,8 @@ attendanceRouter.route('/:id')
                 next(err);
             })
     })
-    .put((req, res, next) => {
-        Attendance.findByIdAndUpdate(req.params.id,{
+    .put(async (req, res, next) => {
+        await Attendance.findByIdAndUpdate(req.params.id,{
             $set:req.body
         },{ new :true })
             .then((Class) => {
@@ -64,8 +66,8 @@ attendanceRouter.route('/:id')
                 next(err);
             })
     })
-    .delete((req, res, next) => {
-        Attendance.findByIdAndRemove(req.params.id)
+    .delete(async (req, res, next) => {
+        await Attendance.findByIdAndRemove(req.params.id)
             .then((Class) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
