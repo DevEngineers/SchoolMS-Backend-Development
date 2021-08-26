@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
 const classTimetableSchema = new Schema({
     class:{
         type:mongoose.Schema.Types.ObjectId,
@@ -19,33 +20,27 @@ const classTimetableSchema = new Schema({
     },
     startSlot:{
         type:[String],
-        required:true,
-        default:['']
+        required:true
     },
     endSlot:{
         type:[String],
         required:true,
-        default:['']
     },
     monday:{
         type:[String],
-        required:true,
-        default:['']
+        required:true
     },
     tuesday:{
         type:[String],
-        required:true,
-        default:['']
+        required:true
     },
     wednesday:{
         type:[String],
-        required:true,
-        default:['']
+        required:true
     },
     thursday:{
         type:[String],
-        required:true,
-        default:['']
+        required:true
     },
     friday:{
         type:[String],
@@ -55,6 +50,7 @@ const classTimetableSchema = new Schema({
 },{
     timestamps:true
 })
+
 
 let ClassTimetable = mongoose.model('ClassTimetable',classTimetableSchema);
 
