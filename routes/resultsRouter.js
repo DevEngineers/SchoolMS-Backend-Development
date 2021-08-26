@@ -48,6 +48,7 @@ resultsRouter.route('/:id')
         await Result.findById(req.params.id)
             .populate('class')
             .populate('classType')
+            /*.populate('studentID')*/
             .then((result) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
