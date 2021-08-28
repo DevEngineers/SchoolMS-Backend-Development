@@ -5,19 +5,23 @@ const User = new Schema({
 
     branch:{
         type:String,
-        default:''
+        default:'',
+        required:true
     },
     username:{
         type:String,
-        default:''
+        default:'',
+        required:true
     },
     email:{
         type:String,
-        default:''
+        default:'',
+        required:true
     },
     userType:{
         type:String,
-        default:''
+        default:'',
+        required:true
     },
     admin:{
         type: Boolean,
@@ -25,7 +29,8 @@ const User = new Schema({
     },
     password:{
         type:String,
-        default:''
+        default:'',
+        required:true
     },
 });
 
