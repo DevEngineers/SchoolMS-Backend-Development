@@ -9,6 +9,8 @@ attendanceRouter.use(bodyParser.json());
 attendanceRouter.route('/')
     .get(async (req,res,next) =>{
         await Attendance.find({})
+            .populate('class')
+            .populate('classType')
             // .populate('student')
             .then((attendance) =>{
                 res.statusCode = 200;
