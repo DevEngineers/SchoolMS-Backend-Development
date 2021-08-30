@@ -40,8 +40,8 @@ classRouter.route('/')
 classRouter.route('/:id')
     .get(async (req,res,next) => {
         await Class.findById(req.params.id)
-            // .populate('teachers')
-            // .populate('classType')
+            .populate('classType')
+            .populate('teachers')
             .then((Class) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
