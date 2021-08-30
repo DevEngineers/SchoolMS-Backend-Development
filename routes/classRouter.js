@@ -10,7 +10,8 @@ classRouter.route('/')
     .get(async (req,res,next) =>{
         await Class.find({})
             // .populate('teachers')
-            // .populate('classType')
+            .populate('classType')
+            .populate('teachers')
             .then((Class) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
