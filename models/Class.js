@@ -18,7 +18,7 @@ const classSchema = new Schema({
         default:''
         // type:mongoose.Schema.Types.ObjectId,
         // required:true,
-        // ref:'teachers'
+        // ref:'teacher'
     },
 },{
     timestamps:true
