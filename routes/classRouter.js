@@ -9,7 +9,6 @@ classRouter.use(bodyParser.json());
 classRouter.route('/')
     .get(async (req,res,next) =>{
         await Class.find({})
-            // .populate('teachers')
             .populate('classType')
             .populate('teachers')
             .then((Class) =>{
