@@ -10,12 +10,12 @@ const subjectSchema = new Schema({
     class:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
-        ref:'class'
+        ref:'Class'
     },
     teacher:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
-        ref:'teacher'
+        ref:'teachers'
     },
 },{
     timestamps:true
