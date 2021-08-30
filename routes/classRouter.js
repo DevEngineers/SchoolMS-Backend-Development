@@ -10,7 +10,7 @@ classRouter.route('/')
     .get(async (req,res,next) =>{
         await Class.find({})
             .populate('classType')
-            .populate('teachers')
+            .populate('teacher')
             .then((Class) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
@@ -41,7 +41,7 @@ classRouter.route('/:id')
     .get(async (req,res,next) => {
         await Class.findById(req.params.id)
             .populate('classType')
-            .populate('teachers')
+            .populate('teacher')
             .then((Class) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
