@@ -13,15 +13,12 @@ const subjectSchema = new Schema({
         default:''
         // type:mongoose.Schema.Types.ObjectId,
         // required:true,
-        // ref:'classes'
+        // ref:'class'
     },
     teacher:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
         required:true,
-        default:''
-        // type:mongoose.Schema.Types.ObjectId,
-        // required:true,
-        // ref:'teachers'
+        ref:'teacher'
     },
 },{
     timestamps:true
