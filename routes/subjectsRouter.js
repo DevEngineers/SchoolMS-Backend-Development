@@ -9,8 +9,8 @@ subjectsRouter.use(bodyParser.json());
 subjectsRouter.route('/')
     .get(async (req,res,next) =>{
         await Subject.find({})
-            // .populate('class')
-            // .populate('teachers')
+            .populate('class')
+            .populate('teachers')
             .then((subject) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type','application/json')
