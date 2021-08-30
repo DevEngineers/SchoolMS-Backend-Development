@@ -41,6 +41,8 @@ attendanceRouter.route('/')
 attendanceRouter.route('/:id')
     .get(async (req,res,next) => {
         await Attendance.findById(req.params.id)
+            .populate('class')
+            .populate('classType')
             // .populate('student')
             .then((attendance) => {
                 res.statusCode = 200;
