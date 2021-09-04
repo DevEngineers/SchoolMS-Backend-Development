@@ -23,6 +23,10 @@ const User = new Schema({
         default:'',
         required:true
     },
+    status:{
+        type:String,
+        default:'Active',
+    },
     admin:{
         type: Boolean,
         default: false
@@ -32,6 +36,8 @@ const User = new Schema({
         default:'',
         required:true
     },
+},{
+    timestamps:true
 });
 
 module.exports = mongoose.model('User', User);
