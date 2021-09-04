@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 /*
 *
 *
-*
 * */
 
 const studentSchema = new Schema({
