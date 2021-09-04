@@ -8,17 +8,14 @@ const classSchema = new Schema({
         default:''
     },
     classType:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
         required:true,
-        default:''
+        ref:'ClassType'
     },
     teacher:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
         required:true,
-        default:''
-        // type:mongoose.Schema.Types.ObjectId,
-        // required:true,
-        // ref:'teachers'
+        ref:'teachers'
     },
 },{
     timestamps:true

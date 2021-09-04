@@ -6,6 +6,7 @@ const logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
+const branchRouter = require('./routes/branchRouter');
 const usersRouter = require('./routes/usersRouter');
 const attendanceRouter = require('./routes/attendanceRouter');
 const classRouter = require('./routes/classRouter');
@@ -50,6 +51,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/branch', branchRouter);
 app.use('/users', usersRouter);
 app.use('/attendances', attendanceRouter);
 app.use('/class', classRouter);

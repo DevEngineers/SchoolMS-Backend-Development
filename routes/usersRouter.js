@@ -12,7 +12,7 @@ usersRouter.route('/')
       await User.find({})
           .then((users) =>{
             res.statusCode = 200;
-            res.setHeader('Content-Type')
+            res.setHeader('Content-Type','application/json')
             res.json(users);
           },(err) =>{
             next(err);

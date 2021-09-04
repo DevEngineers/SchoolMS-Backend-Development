@@ -9,6 +9,8 @@ attendanceRouter.use(bodyParser.json());
 attendanceRouter.route('/')
     .get(async (req,res,next) =>{
         await Attendance.find({})
+            .populate('class')
+            .populate('classType')
             // .populate('student')
             .then((attendance) =>{
                 res.statusCode = 200;
@@ -39,6 +41,8 @@ attendanceRouter.route('/')
 attendanceRouter.route('/:id')
     .get(async (req,res,next) => {
         await Attendance.findById(req.params.id)
+            .populate('class')
+            .populate('classType')
             // .populate('student')
             .then((attendance) => {
                 res.statusCode = 200;
