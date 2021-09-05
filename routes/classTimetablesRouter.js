@@ -83,7 +83,7 @@ classTimetableRouter.route('/:id')
 
         await ClassTimetable.findByIdAndUpdate(req.params.id,{
             $set:newTimetableOb
-        },{ new :true })
+        },{ new :true, useFindAndModify: false })
             .then((classTimetable) => {
                 ClassTimetable.updateOne({_id:classTimetable._id},
                     {$set:{
