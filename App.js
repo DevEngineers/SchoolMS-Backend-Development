@@ -26,7 +26,8 @@ dotenv.config();
  */
 const connect = mongoose.connect(process.env.MONGODB_ATLAS_URL,{
   useNewUrlParser:true,
-  useUnifiedTopology:true
+  useUnifiedTopology:true,
+  useCreateIndex: true
 });
 
 connect.then((db)=>{
