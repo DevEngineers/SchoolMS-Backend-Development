@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
 const User= require("../models/User");
+const authenticate= require('../authenticate');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -28,8 +28,8 @@ usersRouter.route('/')
     })
     .post(async (req,res,next) =>{
         let user = req.body;
-        const salt = await bcrypt.genSalt(Number(process.env.SALT));
-        user.password = await bcrypt.hash(user.password, salt);
+        /*const salt = await bcrypt.genSalt(Number(process.env.SALT));
+        user.password = await bcrypt.hash(user.password, salt);*/
       await User.create(user)
           .then((user) =>{
             res.statusCode = 200;
@@ -64,8 +64,8 @@ usersRouter.route('/:id')
 
                 let newUser = req.body;
                 if (newUser.password !== '') {
-                    const salt = await bcrypt.genSalt(Number(process.env.SALT));
-                    user.password = await bcrypt.hash(newUser.password, salt);
+                    /*const salt = await bcrypt.genSalt(Number(process.env.SALT));
+                    user.password = await bcrypt.hash(newUser.password, salt);*/
                 } else {
                     user.username = newUser.username;
                     user.email = newUser.email;
@@ -103,6 +103,28 @@ usersRouter.route('/:id')
           .catch((err) => {
             next(err);
           })
+    });
+
+usersRouter.route('/login')
+    .post(async (req,res,next) =>{
+        await User.findOne({email:req.body.email,password:req.body.password})
+            .then(async (user) => {
+                if(user){
+                    let token = await authenticate.getToken({_id: user._id});
+                    res.statusCode = 200;
+                    res.setHeader('content-Type', 'application/json');
+                    res.json({token: token, userID:user._id,branch:user.branch});
+                }else{
+                    res.setHeader('content-Type', 'application/json');
+                    res.status = 404;
+                    res.json({status:"User Doesn't exist"})
+                }
+            },(err) => {
+                next(err);
+            })
+            .catch((err) => {
+                next(err);
+            })
     });
 
 module.exports = usersRouter;
