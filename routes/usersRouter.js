@@ -1,6 +1,9 @@
 const express = require('express');
 const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
 const User= require("../models/User");
+const dotenv = require('dotenv');
+dotenv.config();
 
 const usersRouter = express.Router();
 
@@ -24,7 +27,10 @@ usersRouter.route('/')
 
     })
     .post(async (req,res,next) =>{
-      await User.create(req.body)
+        let user = req.body;
+        const salt = await bcrypt.genSalt(Number(process.env.SALT));
+        user.password = await bcrypt.hash(user.password, salt);
+      await User.create(user)
           .then((user) =>{
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
@@ -54,24 +60,25 @@ usersRouter.route('/:id')
     })
     .put(async (req, res, next) => {
         await User.findById(req.params.id)
-            .then((user) => {
+            .then(async (user) => {
 
                 let newUser = req.body;
-                if(newUser.password !== ''){
-                    user.password = newUser.password
-                }else {
+                if (newUser.password !== '') {
+                    const salt = await bcrypt.genSalt(Number(process.env.SALT));
+                    user.password = await bcrypt.hash(newUser.password, salt);
+                } else {
                     user.username = newUser.username;
                     user.email = newUser.email;
                 }
 
-                User.findByIdAndUpdate(req.params.id,{
-                    $set:user
-                },{ new :true })
+                User.findByIdAndUpdate(req.params.id, {
+                    $set: user
+                }, {new: true, useFindAndModify: false})
                     .then((user) => {
                         res.statusCode = 200;
                         res.setHeader('Content-Type', 'application/json');
                         res.json(user);
-                    },(err) => {
+                    }, (err) => {
                         next(err);
                     })
                     .catch((err) => {
