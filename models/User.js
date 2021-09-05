@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 const User = new Schema({
 
     branch:{
-        type:String,
-        default:'',
-        required:true
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'Branch'
     },
     username:{
         type:String,
