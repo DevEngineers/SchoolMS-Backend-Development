@@ -5,6 +5,7 @@ const Student = require("../models/Student");
 const studentsRouter = express.Router();
 
 studentsRouter.use(bodyParser.json());
+
 studentsRouter.route('/')
     .get(async (req,res,next) =>{
         await Student.find({})
@@ -77,9 +78,11 @@ studentsRouter.route('/:id')
             })
     });
 
-studentsRouter.route('/getStudentByClass/:class/:classType')
+studentsRouter.route('/getStudent/search')
     .get(async (req,res,next) =>{
-        await Student.find({class:req.params.class, classType:req.params.classType})
+        await Student.find({class:req.body.class, classType:req.body.classType})
+            .populate('class')
+            .populate('classType')
             .then((student) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
