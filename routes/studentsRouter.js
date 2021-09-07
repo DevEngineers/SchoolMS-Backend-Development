@@ -9,6 +9,8 @@ studentsRouter.use(bodyParser.json());
 studentsRouter.route('/')
     .get(async (req,res,next) =>{
         await Student.find({})
+            .populate('class')
+            .populate('classType')
             .then((student) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
