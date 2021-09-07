@@ -34,14 +34,14 @@ const studentSchema = new Schema({
         default:''
     },
     class:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
         required:true,
-        default:''
+        ref:'Class'
     },
     classType:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
         required:true,
-        default:''
+        ref:'ClassType'
     },
     gender:{
         type:String,
