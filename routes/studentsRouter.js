@@ -83,7 +83,7 @@ studentsRouter.route('/:id')
     });
 
 studentsRouter.route('/getStudent/search')
-    .get(async (req,res,next) =>{
+    .post(async (req,res,next) =>{
         await Student.find({class:req.body.class, classType:req.body.classType})
             .populate('class')
             .populate('classType')
