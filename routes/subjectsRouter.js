@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const bodyParser = require("body-parser");
 const Subject = require("../models/Subject");
 
@@ -6,14 +6,14 @@ const subjectsRouter = express.Router();
 
 subjectsRouter.use(bodyParser.json());
 
-subjectsRouter.route('/')
+subjectsRouter.route("/")
     .get(async (req,res,next) =>{
         await Subject.find({})
-            .populate('class')
-            .populate('teacher')
+            .populate("class")
+            .populate("teacher")
             .then((subject) =>{
                 res.statusCode = 200;
-                res.setHeader('Content-Type','application/json')
+                res.setHeader("Content-Type","application/json")
                 res.json(subject);
             },(err) =>{
                 next(err);
@@ -27,7 +27,7 @@ subjectsRouter.route('/')
         await Subject.create(req.body)
             .then((subject) =>{
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
+                res.setHeader("Content-Type", "application/json");
                 res.json(subject);
             },(err) =>{
                 next(err);
@@ -37,14 +37,14 @@ subjectsRouter.route('/')
             })
     });
 
-subjectsRouter.route('/:id')
+subjectsRouter.route("/:id")
     .get(async (req,res,next) => {
         await Subject.findById(req.params.id)
-            .populate('class')
-            .populate('teacher')
+            .populate("class")
+            .populate("teacher")
             .then((subject) => {
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
+                res.setHeader("Content-Type", "application/json");
                 res.json(subject);
             },(err) => {
                 next(err);
@@ -59,7 +59,7 @@ subjectsRouter.route('/:id')
         },{ new :true })
             .then((subject) => {
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
+                res.setHeader("Content-Type", "application/json");
                 res.json(subject);
             },(err) => {
                 next(err);
@@ -72,7 +72,7 @@ subjectsRouter.route('/:id')
         await Subject.findByIdAndRemove(req.params.id)
             .then((subject) => {
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
+                res.setHeader("Content-Type", "application/json");
                 res.json(subject);
             },(err) => {
                 next(err);
