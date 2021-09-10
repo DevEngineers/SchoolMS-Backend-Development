@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const bodyParser = require("body-parser");
 const Attendance =require("../models/Attendance");
 
@@ -6,15 +6,15 @@ const attendanceRouter = express.Router();
 
 attendanceRouter.use(bodyParser.json());
 
-attendanceRouter.route('/')
+attendanceRouter.route("/")
     .get(async (req,res,next) =>{
         await Attendance.find({})
-            .populate('class')
-            .populate('classType')
+            .populate("class")
+            .populate("classType")
             // .populate('student')
             .then((attendance) =>{
                 res.statusCode = 200;
-                res.setHeader('Content-Type','application/json')
+                res.setHeader("Content-Type","application/json")
                 res.json(attendance);
             },(err) =>{
                 next(err);
@@ -28,7 +28,7 @@ attendanceRouter.route('/')
         await Attendance.create(req.body)
             .then((attendance) =>{
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
+                res.setHeader("Content-Type", "application/json");
                 res.json(attendance);
             },(err) =>{
                 next(err);
@@ -38,15 +38,15 @@ attendanceRouter.route('/')
             })
     });
 
-attendanceRouter.route('/:id')
+attendanceRouter.route("/:id")
     .get(async (req,res,next) => {
         await Attendance.findById(req.params.id)
-            .populate('class')
-            .populate('classType')
+            .populate("class")
+            .populate("classType")
             // .populate('student')
             .then((attendance) => {
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
+                res.setHeader("Content-Type", "application/json");
                 res.json(attendance);
             },(err) => {
                 next(err);
@@ -61,7 +61,7 @@ attendanceRouter.route('/:id')
         },{ new :true })
             .then((Class) => {
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
+                res.setHeader("Content-Type", "application/json");
                 res.json(Class);
             },(err) => {
                 next(err);
@@ -74,7 +74,7 @@ attendanceRouter.route('/:id')
         await Attendance.findByIdAndRemove(req.params.id)
             .then((Class) => {
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
+                res.setHeader("Content-Type", "application/json");
                 res.json(Class);
             },(err) => {
                 next(err);
