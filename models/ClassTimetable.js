@@ -9,7 +9,7 @@ const classTimetableSchema = new Schema(
       ref: "Class",
     },
     classType: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "ClassType",
     },
