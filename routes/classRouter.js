@@ -84,19 +84,20 @@ classRouter.route("/:id")
 
 classRouter.route("/search/:value")
     .get(async (req,res,next) => {
-        await Class.findById(req.params.id)
-            .populate("classType")
-            .populate("teacher")
-            .then((Class) => {
-                res.statusCode = 200;
-                res.setHeader("Content-Type", "application/json");
-                res.json(Class);
-            },(err) => {
-                next(err);
-            })
-            .catch((err) => {
-                next(err);
-            })
+        // await Class.findById(req.params.value)
+        console.log("Search value", req.params.value)
+            // .populate("classType")
+            // .populate("teacher")
+            // .then((Class) => {
+            //     res.statusCode = 200;
+            //     res.setHeader("Content-Type", "application/json");
+            //     res.json(Class);
+            // },(err) => {
+            //     next(err);
+            // })
+            // .catch((err) => {
+            //     next(err);
+            // })
     });
 
 module.exports = classRouter;
