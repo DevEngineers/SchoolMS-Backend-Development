@@ -82,14 +82,14 @@ studentsRouter.route('/:id')
             })
     });
 
-studentsRouter.route('/getStudent/search')
+studentsRouter.route("/getStudent/search")
     .post(async (req,res,next) =>{
         await Student.find({class:req.body.class, classType:req.body.classType})
-            .populate('class')
-            .populate('classType')
+            .populate("class")
+            .populate("classType")
             .then((student) =>{
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
+                res.setHeader("Content-Type", "application/json");
                 res.json(student);
             },(err) =>{
                 next(err);
