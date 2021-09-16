@@ -87,11 +87,11 @@ classRouter.route("/search/:value")
         console.log("Search value", req.params.value)
         let search = req.params.value;
         // await Class.find({class: {$regax: new RegExp('^'+req.params.value+'.*','i')}})
-        await Class.find({ class: { $regex: search.toLowerCase(), $options: 'i' } })
+        await Class.find({ class: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({class: 1})
             .populate("classType")
             .populate("teacher")
             .then((Class) => {
-                console.log("get Class",Class)
+                // console.log("get Class",Class)
                 res.statusCode = 200;
                 res.setHeader("Content-Type", "application/json");
                 res.json(Class);
