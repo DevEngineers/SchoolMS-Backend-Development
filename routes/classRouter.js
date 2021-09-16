@@ -85,7 +85,9 @@ classRouter.route("/:id")
 classRouter.route("/search/:value")
     .get(async (req,res,next) => {
         console.log("Search value", req.params.value)
-        await Class.find({ class: { $regex: req.params.value, $options: 'm' } })
+        let search = req.params.value;
+        // await Class.find({class: {$regax: new RegExp('^'+req.params.value+'.*','i')}})
+        await Class.find({ class: { $regex: search.toLowerCase(), $options: 'i' } })
             .populate("classType")
             .populate("teacher")
             .then((Class) => {
