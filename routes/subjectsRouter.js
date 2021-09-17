@@ -87,7 +87,6 @@ subjectsRouter.route("/search/:value")
     .get(async (req,res,next) => {
         console.log("Search value", req.params.value)
         let search = req.params.value;
-        // await Class.find({class: {$regax: new RegExp('^'+req.params.value+'.*','i')}})
         await Subject.find({ class: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({class: 1})
             .populate("classType")
             .populate("teacher")
