@@ -82,4 +82,7 @@ subjectsRouter.route("/:id")
             })
     });
 
+subjectsRouter.route("/search/:value")
+
+
 module.exports = subjectsRouter;
