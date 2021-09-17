@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const Subject = require("../models/Subject");
-const Class = require("../models/Class");
 
 const subjectsRouter = express.Router();
 
@@ -88,13 +87,12 @@ subjectsRouter.route("/search/:value")
         console.log("Search value", req.params.value)
         let search = req.params.value;
         await Subject.find({ class: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({class: 1})
-            .populate("classType")
+            .populate("class")
             .populate("teacher")
-            .then((Class) => {
-                // console.log("get Class",Class)
+            .then((subject) => {
                 res.statusCode = 200;
                 res.setHeader("Content-Type", "application/json");
-                res.json(Class);
+                res.json(subject);
             },(err) => {
                 next(err);
             })
