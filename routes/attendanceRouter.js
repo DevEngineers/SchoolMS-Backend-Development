@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const Attendance =require("../models/Attendance");
-const Class = require("../models/Class");
 
 const attendanceRouter = express.Router();
 
@@ -89,7 +88,7 @@ attendanceRouter.route("/search/:value")
     .get(async (req,res,next) => {
         console.log("Search value", req.params.value)
         let search = req.params.value;
-        await Attendance.find({ class: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({class: 1})
+        await Attendance.find({ class : { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({date: 1})
             .populate("class")
             .populate("classType")
             // .populate('student')
