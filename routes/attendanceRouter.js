@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const Attendance =require("../models/Attendance");
+const Class = require("../models/Class");
 
 const attendanceRouter = express.Router();
 
@@ -76,6 +77,26 @@ attendanceRouter.route("/:id")
                 res.statusCode = 200;
                 res.setHeader("Content-Type", "application/json");
                 res.json(Class);
+            },(err) => {
+                next(err);
+            })
+            .catch((err) => {
+                next(err);
+            })
+    });
+
+attendanceRouter.route("/search/:value")
+    .get(async (req,res,next) => {
+        console.log("Search value", req.params.value)
+        let search = req.params.value;
+        await Attendance.find({ class: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({class: 1})
+            // .populate("class")
+            // .populate("classType")
+            // .populate('student')
+            .then((attendance) => {
+                res.statusCode = 200;
+                res.setHeader("Content-Type", "application/json");
+                res.json(attendance);
             },(err) => {
                 next(err);
             })
