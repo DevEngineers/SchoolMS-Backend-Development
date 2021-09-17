@@ -90,8 +90,8 @@ attendanceRouter.route("/search/:value")
         console.log("Search value", req.params.value)
         let search = req.params.value;
         await Attendance.find({ class: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({class: 1})
-            // .populate("class")
-            // .populate("classType")
+            .populate("class")
+            .populate("classType")
             // .populate('student')
             .then((attendance) => {
                 res.statusCode = 200;
