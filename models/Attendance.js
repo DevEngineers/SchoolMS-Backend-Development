@@ -22,10 +22,6 @@ const attendanceSchema = new Schema({
         ref:'Students',
         default:['']
     },
-    // attendance:{
-    //     type:[Boolean],
-    //     required:true,
-    // },
 },{
     timestamps:true
 })
