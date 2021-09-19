@@ -11,7 +11,7 @@ attendanceRouter.route("/")
         await Attendance.find({})
             .populate("class")
             .populate("classType")
-            // .populate('student')
+            .populate('student')
             .then((attendance) =>{
                 res.statusCode = 200;
                 res.setHeader("Content-Type","application/json")
