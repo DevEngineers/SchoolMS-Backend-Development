@@ -17,14 +17,15 @@ const attendanceSchema = new Schema({
         required:true
     },
     student:{
-        type:[String],
+        type:[mongoose.Schema.Types.ObjectId],
         required:true,
+        ref:'Students',
         default:['']
     },
-    attendance:{
-        type:[Boolean],
-        required:true,
-    },
+    // attendance:{
+    //     type:[Boolean],
+    //     required:true,
+    // },
 },{
     timestamps:true
 })
