@@ -90,7 +90,7 @@ attendanceRouter.route("/search/:value")
         await Attendance.find({ class : { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({date: 1})
             .populate("class")
             .populate("classType")
-            // .populate('student')
+            .populate('student')
             .then((attendance) => {
                 res.statusCode = 200;
                 res.setHeader("Content-Type", "application/json");
