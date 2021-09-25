@@ -121,6 +121,7 @@ studentsRouter.route("/getStudent/search")
 
 
     });
+
 studentsRouter.route("/search/:value")
     .get(async (req,res,next) => {
         console.log("Search value", req.params.value)
