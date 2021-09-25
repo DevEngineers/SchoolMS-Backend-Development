@@ -24,17 +24,35 @@ studentsRouter.route('/')
 
     })
     .post(async(req,res,next) =>{
-        await Student.create(req.body)
-            .then((student) =>{
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json(student);
+        await Student.find({})
+            .then( async (student) =>{
+                let studentIDArr=[];
+                for(let i=0;i < student.length;i++  ){
+                    studentIDArr[i]=student[i].studentID;
+                }
+                let studentID=generateId(studentIDArr);
+                let studentObj=req.body;
+                studentObj.studentID=studentID;
+                await Student.create(studentObj)
+                    .then((student) =>{
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.json(student);
+                    },(err) =>{
+                        next(err);
+                    })
+                    .catch((err) =>{
+                        next(err);
+                    })
+
             },(err) =>{
                 next(err);
             })
             .catch((err) =>{
                 next(err);
             })
+
+
     });
 
 studentsRouter.route('/:id')
@@ -98,6 +116,43 @@ studentsRouter.route("/getStudent/search")
                 next(err);
             })
 
+
     });
+studentsRouter.route("/search/:value")
+    .get(async (req,res,next) => {
+        console.log("Search value", req.params.value)
+        let search = req.params.value;
+        await Student.find({ student: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({student: 1})
+            .populate("class")
+            .populate("classType")
+            .then((Student) => {
+                // console.log("get Class",Class)
+                res.statusCode = 200;
+                res.setHeader("Content-Type", "application/json");
+                res.json(Student);
+            },(err) => {
+                next(err);
+            })
+            .catch((err) => {
+                next(err);
+            })
+    });
+
+
+/*Student ID */
+function  generateId(studentIdArray)
+{
+    let studentId;
+    let arrSize = studentIdArray.length;
+    arrSize++;
+
+    studentId="ST0"+arrSize;
+    if(studentIdArray.includes(studentId))
+    {
+        arrSize++;
+        studentId="ST0"+arrSize;
+    }
+    return studentId;
+}
 
 module.exports = studentsRouter;

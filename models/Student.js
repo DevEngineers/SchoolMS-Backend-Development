@@ -3,6 +3,13 @@ const Schema = mongoose.Schema;
 
 const studentSchema = new Schema({
 
+
+   studentID:{
+        type:String,
+        required:true,
+        default:''
+    },
+
     studentName:{
         type:String,
         required:true,
