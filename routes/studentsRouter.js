@@ -11,6 +11,8 @@ studentsRouter.route('/')
         await Student.find({})
             .populate('class')
             .populate('classType')
+            // .populate('schoolBranch')
+            .populate('branchName')
             .then((student) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -60,6 +62,7 @@ studentsRouter.route('/:id')
         await Student.findById(req.params.id)
             .populate('class')
             .populate('classType')
+            .populate('branchName')
             .then((student) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -102,9 +105,10 @@ studentsRouter.route('/:id')
 
 studentsRouter.route("/getStudent/search")
     .post(async (req,res,next) =>{
-        await Student.find({class:req.body.class, classType:req.body.classType})
+        await Student.find({class:req.body.class, classType:req.body.classType,schoolBranch:req.body.schoolBranch})
             .populate("class")
             .populate("classType")
+            .populate("schoolBranch")
             .then((student) =>{
                 res.statusCode = 200;
                 res.setHeader("Content-Type", "application/json");
