@@ -77,4 +77,22 @@ feesRouter.route('/:id')
             })
     });
 
+feesRouter.route("/search/:value")
+    .get(async (req,res,next) => {
+        console.log("Search value", req.params.value)
+        let search = req.params.value;
+        await Payment.find({ payment: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({payment: 1})
+            .then((Payment) => {
+                // console.log("get Payment",Payment)
+                res.statusCode = 200;
+                res.setHeader("Content-Type", "application/json");
+                res.json(Payment);
+            },(err) => {
+                next(err);
+            })
+            .catch((err) => {
+                next(err);
+            })
+    });
+
 module.exports = feesRouter;

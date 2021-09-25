@@ -16,8 +16,9 @@ const TeacherSchema = new Schema({
         required: true
     },
     schoolBranch: {
-        type: String,
-        required: true
+        type:mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref:'Branch'
     },
     qualification: {
         type: String,

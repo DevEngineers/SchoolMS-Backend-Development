@@ -130,7 +130,7 @@ studentsRouter.route("/search/:value")
             .populate("classType")
             .populate('schoolBranch')
             .then((Student) => {
-                // console.log("get Class",Class)
+                // console.log("get Student",Student)
                 res.statusCode = 200;
                 res.setHeader("Content-Type", "application/json");
                 res.json(Student);
