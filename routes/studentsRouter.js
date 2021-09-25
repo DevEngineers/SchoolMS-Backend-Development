@@ -9,8 +9,9 @@ studentsRouter.use(bodyParser.json());
 studentsRouter.route('/')
     .get(async (req,res,next) =>{
         await Student.find({})
-            .populate('class')
-            .populate('classType')
+            .populate("schoolBranch")
+            .populate("class")
+            .populate("classType")
             .then((student) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -58,8 +59,9 @@ studentsRouter.route('/')
 studentsRouter.route('/:id')
     .get(async (req,res,next) => {
         await Student.findById(req.params.id)
-            .populate('class')
-            .populate('classType')
+            .populate("schoolBranch")
+            .populate("class")
+            .populate("classType")
             .then((student) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -103,6 +105,7 @@ studentsRouter.route('/:id')
 studentsRouter.route("/getStudent/search")
     .post(async (req,res,next) =>{
         await Student.find({class:req.body.class, classType:req.body.classType})
+            .populate("schoolBranch")
             .populate("class")
             .populate("classType")
             .then((student) =>{
@@ -118,11 +121,13 @@ studentsRouter.route("/getStudent/search")
 
 
     });
+
 studentsRouter.route("/search/:value")
     .get(async (req,res,next) => {
         console.log("Search value", req.params.value)
         let search = req.params.value;
         await Student.find({ student: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({student: 1})
+            .populate("schoolBranch")
             .populate("class")
             .populate("classType")
             .then((Student) => {
