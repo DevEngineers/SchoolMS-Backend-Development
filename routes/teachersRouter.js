@@ -85,7 +85,7 @@ teachersRouter.route("/search/:value")
     .get(async (req,res,next) => {
         console.log("Search value", req.params.value)
         let search = req.params.value;
-        await Teacher.find({ teacher: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({teacher: 1})
+        await Teacher.find({ teacherName: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({teacherName: 1})
             .populate('schoolBranch')
             .then((Teacher) => {
                 // console.log("get Teacher",Teacher)

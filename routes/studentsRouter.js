@@ -126,7 +126,7 @@ studentsRouter.route("/search/:value")
     .get(async (req,res,next) => {
         console.log("Search value", req.params.value)
         let search = req.params.value;
-        await Student.find({ student: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({student: 1})
+        await Student.find({ studentName: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({studentName: 1})
             .populate("class")
             .populate("classType")
             .populate('schoolBranch')
@@ -142,6 +142,8 @@ studentsRouter.route("/search/:value")
                 next(err);
             })
     });
+
+
 
 
 /*Student ID */
