@@ -36,9 +36,9 @@ const studentSchema = new Schema({
         default:''
     },
     schoolBranch:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
         required:true,
-        default:''
+        ref:'Branch'
     },
     class:{
         type:mongoose.Schema.Types.ObjectId,

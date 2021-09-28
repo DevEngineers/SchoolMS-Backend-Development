@@ -10,6 +10,7 @@ teachersRouter.use(bodyParser.json());
 teachersRouter.route('/')
     .get(async (req,res,next) =>{
         await Teacher.find({})
+            .populate('schoolBranch')
             .then((teachers) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -39,6 +40,7 @@ teachersRouter.route('/')
 teachersRouter.route('/:id')
     .get(async (req,res,next) => {
         await Teacher.findById(req.params.id)
+            .populate('schoolBranch')
             .then((teacher) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -71,6 +73,25 @@ teachersRouter.route('/:id')
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.json(teacher);
+            },(err) => {
+                next(err);
+            })
+            .catch((err) => {
+                next(err);
+            })
+    });
+
+teachersRouter.route("/search/:value")
+    .get(async (req,res,next) => {
+        console.log("Search value", req.params.value)
+        let search = req.params.value;
+        await Teacher.find({ teacherName: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({teacherName: 1})
+            .populate('schoolBranch')
+            .then((Teacher) => {
+                // console.log("get Teacher",Teacher)
+                res.statusCode = 200;
+                res.setHeader("Content-Type", "application/json");
+                res.json(Teacher);
             },(err) => {
                 next(err);
             })

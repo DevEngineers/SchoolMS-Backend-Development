@@ -3,25 +3,29 @@ const Schema = mongoose.Schema;
 
 const paymentSchema = new Schema({
     schoolBranch: {
-        type: String,
-        required: true
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'Branch'
     },
     class: {
-        type: String,
-        required: true,
-        trim: true
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'Class'
     },
     classType: {
-        type: String,
-        required: true
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'ClassType'
     },
     studentId: {
-        type: String,
-        required: true
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'Students'
     },
     studentName: {
-        type: String,
-        required: true
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'Students'
     },
     paymentType: {
         type: String,

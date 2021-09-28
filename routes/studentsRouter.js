@@ -11,6 +11,7 @@ studentsRouter.route('/')
         await Student.find({})
             .populate('class')
             .populate('classType')
+            .populate('schoolBranch')
             .then((student) =>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -60,6 +61,7 @@ studentsRouter.route('/:id')
         await Student.findById(req.params.id)
             .populate('class')
             .populate('classType')
+            .populate('schoolBranch')
             .then((student) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -105,6 +107,7 @@ studentsRouter.route("/getStudent/search")
         await Student.find({class:req.body.class, classType:req.body.classType})
             .populate("class")
             .populate("classType")
+            .populate('schoolBranch')
             .then((student) =>{
                 res.statusCode = 200;
                 res.setHeader("Content-Type", "application/json");
@@ -118,15 +121,17 @@ studentsRouter.route("/getStudent/search")
 
 
     });
+
 studentsRouter.route("/search/:value")
     .get(async (req,res,next) => {
         console.log("Search value", req.params.value)
         let search = req.params.value;
-        await Student.find({ student: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({student: 1})
+        await Student.find({ studentName: { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({studentName: 1})
             .populate("class")
             .populate("classType")
+            .populate('schoolBranch')
             .then((Student) => {
-                // console.log("get Class",Class)
+                // console.log("get Student",Student)
                 res.statusCode = 200;
                 res.setHeader("Content-Type", "application/json");
                 res.json(Student);
@@ -137,6 +142,8 @@ studentsRouter.route("/search/:value")
                 next(err);
             })
     });
+
+
 
 
 /*Student ID */
