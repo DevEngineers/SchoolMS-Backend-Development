@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ExamTimetable = require("../models/ExamTimetable");
-const ClassTimetable = require("../models/ClassTimetable");
 
 /**
  * @author : M.N.M Akeel
@@ -111,7 +110,7 @@ examTimetableRouter
 examTimetableRouter.route('/search/result')
     .get(async (req, res, next) => {
         await ExamTimetable.find({})
-            .populate("classType")
+            .populate("class")
             .then(
                 (examTimetable) => {
                     const query = req.query;

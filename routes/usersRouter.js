@@ -115,7 +115,7 @@ usersRouter.route("/login")
                         let token = await authenticate.getToken({_id: user._id});
                         res.statusCode = 200;
                         res.setHeader("content-Type", "application/json");
-                        res.json({token: token, userID: user._id, branch: user.branch});
+                        res.json({status:200 ,token: token, userID: user._id, branch: user.branch});
                     } else {
                         res.setHeader("content-Type", "application/json");
                         res.status = 404;

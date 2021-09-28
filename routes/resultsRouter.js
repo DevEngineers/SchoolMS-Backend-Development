@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const Result = require("../models/Result");
-const ExamTimetable = require("../models/ExamTimetable");
 
 /**
  * @author : M.N.M Akeel
@@ -56,7 +55,7 @@ resultsRouter
         await Result.findById(req.params.id)
             .populate("class")
             .populate("classType")
-            /*.populate('studentID')*/
+            .populate('studentID')
             .then(
                 (result) => {
                     res.statusCode = 200;
