@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const Attendance =require("../models/Attendance");
+const Result = require("../models/Result");
+const generate = require("../reportModule/reportServices/ResultReportService");
 
 const attendanceRouter = express.Router();
 
@@ -11,7 +13,7 @@ attendanceRouter.route("/")
         await Attendance.find({})
             .populate("class")
             .populate("classType")
-            .populate('student')
+            .populate("student")
             .then((attendance) =>{
                 res.statusCode = 200;
                 res.setHeader("Content-Type","application/json")
@@ -90,7 +92,7 @@ attendanceRouter.route("/search/:value")
         await Attendance.find({ class : { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({date: 1})
             .populate("class")
             .populate("classType")
-            .populate('student')
+            .populate("student")
             .then((attendance) => {
                 res.statusCode = 200;
                 res.setHeader("Content-Type", "application/json");
@@ -101,6 +103,30 @@ attendanceRouter.route("/search/:value")
             .catch((err) => {
                 next(err);
             })
+    });
+
+attendanceRouter.route('/generate/report')
+    .post(async (req, res, next) => {
+        let attendanceFilter = req.body;
+        console.log(attendanceFilter)
+        await Result.findOne({studentID:attendanceFilter.studentID,year:attendanceFilter.year,term:attendanceFilter.term,class:attendanceFilter.class,classType:attendanceFilter.classType})
+            .populate("class")
+            .populate("classType")
+            .populate("student")
+            .then(
+                (attendance) => {
+                    // generate("./output.pdf",attendance)
+                    res.statusCode = 200;
+                    res.setHeader("Content-Type", "application/json");
+                    res.json(attendance);
+                },
+                (err) => {
+                    next(err);
+                }
+            )
+            .catch((err) => {
+                next(err);
+            });
     });
 
 module.exports = attendanceRouter;
