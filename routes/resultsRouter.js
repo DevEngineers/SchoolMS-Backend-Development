@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const Result = require("../models/Result");
+const generate = require("../reportModule/reportServices/ResultReportService");
 
 /**
  * @author : M.N.M Akeel
@@ -140,5 +141,29 @@ resultsRouter.route('/search/result')
                 next(err);
             });
     });
+
+resultsRouter.route('/generate/report')
+    .post(async (req, res, next) => {
+        let resultFilter = req.body;
+        console.log(resultFilter)
+        await Result.findOne({studentID:resultFilter.studentID,year:resultFilter.year,term:resultFilter.term,class:resultFilter.class,classType:resultFilter.classType})
+        .populate("classType")
+        .populate("class")
+        .populate('studentID')
+        .then(
+          (result) => {
+              generate("./output.pdf",result)
+              res.statusCode = 200;
+              res.setHeader("Content-Type", "application/json");
+              res.json(result);
+          },
+          (err) => {
+              next(err);
+          }
+        )
+        .catch((err) => {
+            next(err);
+        });
+});
 
 module.exports = resultsRouter;
