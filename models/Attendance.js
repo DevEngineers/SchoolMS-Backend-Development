@@ -16,6 +16,11 @@ const attendanceSchema = new Schema({
         type:Date,
         required:true
     },
+    month:{
+        type:String,
+        required:true,
+        default:''
+    },
     student:{
         type:[mongoose.Schema.Types.ObjectId],
         required:true,
