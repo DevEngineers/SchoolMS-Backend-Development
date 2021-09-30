@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const Attendance =require("../models/Attendance");
-const generate = require("../reportModule/reportServices/ResultReportService");
+const generate = require("../reportModule/reportServices/AttendanceReportService");
 
 const attendanceRouter = express.Router();
 
@@ -114,7 +114,7 @@ attendanceRouter.route('/generate/report')
             .populate("student")
             .then(
                 (attendance) => {
-                    generate("./output.pdf",attendance)
+                    generate("./Attendance Report.pdf",attendance)
                     res.statusCode = 200;
                     res.setHeader("Content-Type", "application/json");
                     res.json(attendance);
