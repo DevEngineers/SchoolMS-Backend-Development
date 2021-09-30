@@ -88,7 +88,7 @@ attendanceRouter.route("/:id")
 attendanceRouter.route("/search/:value")
     .get(async (req,res,next) => {
         let search = req.params.value;
-        await Attendance.find({ class : { $regex: '.*' + search.toLowerCase() + '.*', $options: 'i' }}).sort({date: 1})
+        await Attendance.find({ date : { $regex: '.*' + search + '.*', $options: 'i' }}).sort({date: 1})
             .populate("class")
             .populate("classType")
             .populate("student")
