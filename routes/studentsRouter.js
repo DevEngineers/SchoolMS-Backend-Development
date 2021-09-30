@@ -1,8 +1,13 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const Student = require("../models/Student");
-
 const studentsRouter = express.Router();
+
+/**
+ * @author : M.A.M Nusky
+ * Registration Number : IT19167442
+ */
+
 
 studentsRouter.use(bodyParser.json());
 

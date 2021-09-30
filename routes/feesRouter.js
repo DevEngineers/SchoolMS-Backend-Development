@@ -1,8 +1,13 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const Payment = require("../models/Fees");
-
 const feesRouter = express.Router();
+const generate = require("../reportModule/reportServices/PaymentReportService");
+
+/**
+ * @author : M.A.M Nusky
+ * Registration Number : IT19167442
+ */
 
 feesRouter.use(bodyParser.json());
 feesRouter.route('/')
@@ -110,6 +115,31 @@ feesRouter.route("/search/:value")
             .catch((err) => {
                 next(err);
             })
+    });
+
+feesRouter.route('/generate/report')
+    .post(async (req, res, next) => {
+        let paymentFilter = req.body;
+        console.log(paymentFilter)
+        await Payment.findOne({studentId:paymentFilter.studentId,class:paymentFilter.class,classType:paymentFilter.classType,paymentType:paymentFilter.paymentType})
+            .populate("classType")
+            .populate("class")
+            .populate('studentId')
+            .then(
+                (payment) => {
+                    generate("./output.pdf",payment)
+                    console.log(payment)
+                    res.statusCode = 200;
+                    res.setHeader("Content-Type", "application/json");
+                    res.json(payment);
+                },
+                (err) => {
+                    next(err);
+                }
+            )
+            .catch((err) => {
+                next(err);
+            });
     });
 
 module.exports = feesRouter;
