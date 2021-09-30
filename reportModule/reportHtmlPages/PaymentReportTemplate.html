@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #header {
+            background-color: #465462;
+            padding: 8px;
+        }
+
+        #headerCenter {
+            align-items: center;
+            width: 600px;
+            height: auto;
+            text-align: center;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        #headerMainTitle {
+            font-family: Times New Roman, Times, serif;
+            color: white;
+            font-size: 34px;
+            padding: 10px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        #headerBranchTitle {
+            font-family: Times New Roman, Times, serif;
+            color: white;
+            font-size: 24px;
+            padding: 10px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        #headerAddress {
+            font-family: Times New Roman, Times, serif;
+            color: white;
+            font-size: 20px;
+            padding: 10px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        #reportTitleDiv {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            justify-content: center;
+        }
+
+        #reportTitle {
+            font-family: Times New Roman, Times, serif;
+            font-size: 22px;
+            display: inline-block;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .profileText{
+            font-size: 20px;
+        }
+
+        #tableDiv {
+            margin-right: auto;
+            margin-left: auto;
+            justify-content: center;
+            width: 70%;
+        }
+
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            float: left;
+        }
+
+        .styled-table thead tr {
+            background-color: #0B172A;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #0B172A;
+        }
+
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #0B172A;
+        }
+
+        .thUData {
+            width: 180px;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .tdUData {
+            text-align: center;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        #termText {
+            width: 180px;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .hideText {
+            width: 180px;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            color: #0B172A;
+            font-size: 20px;
+        }
+
+        #footerLabel{
+            font-size: 20px;
+        }
+    </style>
+    <meta charset="utf-8">
+    <title>Student Payment Report</title>
+</head>
+<body>
+<div id="header">
+    <div id="headerCenter">
+        <label id="headerMainTitle">Gateway International Collage</label>
+        <label id="headerBranchTitle">Colombo | Kandy | Matara | Dehiwala</label>
+        <label id="headerAddress">Contact No: 0123456789 Email: gatewayInt@gmail.com</label>
+    </div>
+</div>
+<hr/>
+<div>
+    <div id="reportTitleDiv">
+        <label id="reportTitle">Student Payment Report</label>
+    </div>
+    <p><span style="font-size:22px;font-weight: bold">Student Profile</span></p>
+    <p class="profileText">Student ID: {{payment.studentID}}</p>
+
+    <p class="profileText">Student Name: {{payment.studentName}}</p>
+
+    <!--    <p class="profileText">Year: {{payment.year}}</p>-->
+
+    <p class="profileText">Grade: {{payment.class}}</p>
+
+    <p class="profileText">Class Type: {{payment.classType}}</p>
+
+</div>
+
+<div id="tableDiv">
+    <table class="styled-table">
+        <thead>
+        <!--        <tr>-->
+        <!--            <td id="termText">Payment: {{payment.paymentAmount}}</td>-->
+        <!--        </tr>-->
+        <tr>
+            <td class="thUData">Payment Type</td>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each payment.paymentType}}
+        <tr>
+            <td class="tdUData">{{this}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <table class="styled-table">
+        <thead>
+        <!--        <tr>-->
+        <!--            <td class="hideText">{{payment.term}}</td>-->
+        <!--        </tr>-->
+        <tr>
+            <td class="thUData">Date Of Payment</td> <!--Date Of Payment-->
+        </tr>
+        </thead>
+        <tbody>
+        {{#each payment.dateOFPayment}}
+        <tr>
+            <td class="tdUData">{{this}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <table class="styled-table">
+        <thead>
+        <!--        <tr>-->
+        <!--            <td class="hideText">{{result.term}}</td>-->
+        <!--        </tr>-->
+        <tr>
+            <td class="thUData">Payment Amount</td><!--Payment Amount  <-Grades-->
+        </tr>
+        </thead>
+        <tbody>
+        {{#each payment.paymentAmount}}
+        <tr>
+            <td class="tdUData">{{this}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>
+<hr style="width: 100%"/>
+<label id="footerLabel"}>Copyright &copy;2021 Gateway International School. All right reserved</label>
+</body>
+</html>

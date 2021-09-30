@@ -3,6 +3,10 @@ const bodyParser = require("body-parser");
 const Teacher = require("../models/Teacher");
 const teachersRouter = express.Router();
 
+/**
+ * @author : M.A.M Nusky
+ * Registration Number : IT19167442
+ */
 
 teachersRouter.use(bodyParser.json());
 
