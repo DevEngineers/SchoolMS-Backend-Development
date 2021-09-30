@@ -153,34 +153,32 @@
         <label id="reportTitle">Student Attendance Report</label>
     </div>
     <div>
-        <p style="font-size:18px;font-weight: bold;text-align: right">Date: {{result.date}}</p>
-        <p style="font-size:18px;font-weight: bold;text-align: right">Time: {{result.time}}</p>
+        <p style="font-size:18px;font-weight: bold;text-align: right">Date: {{attendance.date}}</p>
+        <p style="font-size:18px;font-weight: bold;text-align: right">Time: {{attendance.time}}</p>
     </div>
-    <p><span style="font-size:22px;font-weight: bold">Student Profile</span></p>
+    <p><span style="font-size:22px;font-weight: bold"> Class Details </span></p>
 
-    <p class="profileText">Student ID: {{result.studentID}}</p>
+    <p class="profileText"> {{attendance.class}} </p>
 
-    <p class="profileText">Student Name: {{result.studentName}}</p>
+    <p class="profileText"> {{attendance.classType}} </p>
 
-    <p class="profileText">Year: {{result.year}}</p>
+    <p class="profileText"> Month: {{attendance.month}} </p>
 
-    <p class="profileText">Grade: {{result.class}}</p>
-
-    <p class="profileText">Class Type: {{result.classType}}</p>
+    <p class="profileText"> Total working days: 07 </p>
 </div>
 
 <div id="tableDiv">
     <table class="styled-table">
         <thead>
         <tr>
-            <td id="termText">Term: {{result.term}}</td>
+            <td id="termText">Month: {{attendance.month}}</td>
         </tr>
         <tr>
-            <td class="thUData">Subjects</td>
+            <td class="thUData">Students</td>
         </tr>
         </thead>
         <tbody>
-        {{#each result.examSubjects}}
+        {{#each attendance.student}}
         <tr>
             <td class="tdUData">{{this}}</td>
         </tr>
@@ -190,14 +188,14 @@
     <table class="styled-table">
         <thead>
         <tr>
-            <td class="hideText">{{result.term}}</td>
+            <td class="hideText">{{attendance.month}}</td>
         </tr>
         <tr>
-            <td class="thUData">Marks</td>
+            <td class="thUData">Present</td>
         </tr>
         </thead>
         <tbody>
-        {{#each result.examMarks}}
+        {{#each attendance.present}}
         <tr>
             <td class="tdUData">{{this}}</td>
         </tr>
@@ -207,14 +205,14 @@
     <table class="styled-table">
         <thead>
         <tr>
-            <td class="hideText">{{result.term}}</td>
+            <td class="hideText">{{attendance.month}}</td>
         </tr>
         <tr>
-            <td class="thUData">Grades</td>
+            <td class="thUData">Absent</td>
         </tr>
         </thead>
         <tbody>
-        {{#each result.grades}}
+        {{#each attendance.absent}}
         <tr>
             <td class="tdUData">{{this}}</td>
         </tr>

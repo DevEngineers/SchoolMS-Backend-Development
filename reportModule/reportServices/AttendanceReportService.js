@@ -11,32 +11,29 @@ const options = {
     border: "10mm",
 };
 
-function convertObject(results){
-    const result = {
-        _id: results._id,
-        classType:results.classType.name,
-        year: results.year,
-        term: results.term,
-        grades: results.grades,
-        examMarks: results.examMarks,
-        examSubjects: results.examSubjects,
-        class:results.class.class,
-        studentID: results.studentID.studentID,
-        studentName:results.studentID.studentName,
+function convertObject(Attendances){
+    const attendance = {
+        _id: Attendances._id,
+        class:Attendances.class.class,
+        classType:Attendances.classType.name,
+        student: ['Shawn Mendes','Camila Cabello','Ratnayake','Nimal','Kamal'],
+        present:['07','05','06','04','05'],
+        absent:['00','02','01','03','02'],
+        month: Attendances.month,
         date:new Date().toISOString().slice(0, 10),
         time:new Date().toLocaleTimeString()
     }
 
-    return result;
+    return attendance;
 }
 
-module.exports = async function generateAttendanceReport(fileLocation,results) {
-    let resultObj = convertObject(results);
+module.exports = async function generateAttendanceReport(fileLocation,Attendances) {
+    let attendanceObj = convertObject(Attendances);
     await pdf
         .create({
             html: html,
             data: {
-                result: resultObj
+                attendance: attendanceObj
             },
             path: fileLocation,
             type: "",
