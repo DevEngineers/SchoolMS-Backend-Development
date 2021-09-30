@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const Attendance =require("../models/Attendance");
-const Result = require("../models/Result");
 const generate = require("../reportModule/reportServices/ResultReportService");
 
 const attendanceRouter = express.Router();
@@ -109,13 +108,13 @@ attendanceRouter.route('/generate/report')
     .post(async (req, res, next) => {
         let attendanceFilter = req.body;
         console.log(attendanceFilter)
-        await Result.findOne({studentID:attendanceFilter.studentID,year:attendanceFilter.year,term:attendanceFilter.term,class:attendanceFilter.class,classType:attendanceFilter.classType})
+        await Attendance.findOne({class:attendanceFilter.class,classType:attendanceFilter.classType,month:attendanceFilter.month})
             .populate("class")
             .populate("classType")
             .populate("student")
             .then(
                 (attendance) => {
-                    // generate("./output.pdf",attendance)
+                    generate("./output.pdf",attendance)
                     res.statusCode = 200;
                     res.setHeader("Content-Type", "application/json");
                     res.json(attendance);
