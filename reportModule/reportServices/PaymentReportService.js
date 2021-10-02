@@ -19,9 +19,8 @@ function convertObject(payments){
         class:payments.class.class,
         studentID: payments.studentId.studentID,
         studentName:payments.studentId.studentName,
-        paymentType:payments.paymentType,
-        dateOFPayment:payments.dateOfPayment,
-        paymentAmount:payments.paymentAmount,
+        dateOfPayment:payments.dateOfPayment,
+        paidAmount:payments.paidAmount,
         date:new Date().toISOString().slice(0, 10),
         time:new Date().toLocaleTimeString()
     }

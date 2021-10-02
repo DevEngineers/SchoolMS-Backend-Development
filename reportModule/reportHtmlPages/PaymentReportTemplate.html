@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <style>
         #header {
@@ -79,7 +79,7 @@
         }
 
         .styled-table thead tr {
-            background-color: #0B172A;
+            background-color: #f44336;
             color: #ffffff;
             text-align: left;
         }
@@ -93,12 +93,12 @@
         }
 
         .styled-table tbody tr:last-of-type {
-            border-bottom: 2px solid #0B172A;
+            border-bottom: 2px solid #f44336;     <!--color: white; New  -->
         }
 
         .styled-table tbody tr.active-row {
             font-weight: bold;
-            color: #0B172A;
+            color: #f44336;
         }
 
         .thUData {
@@ -127,7 +127,7 @@
             text-align: center;
             padding: 10px;
             font-weight: bold;
-            color: #0B172A;
+            /*color: #000000;*/
             font-size: 20px;
         }
 
@@ -148,15 +148,20 @@
 </div>
 <hr/>
 <div>
+
     <div id="reportTitleDiv">
         <label id="reportTitle">Student Payment Report</label>
+    </div>
+    <div>
+        <p style="font-size:18px;font-weight: bold;text-align: right">Date: {{payment.date}}</p>
+        <p style="font-size:18px;font-weight: bold;text-align: right">Time: {{payment.time}}</p>
     </div>
     <p><span style="font-size:22px;font-weight: bold">Student Profile</span></p>
     <p class="profileText">Student ID: {{payment.studentID}}</p>
 
     <p class="profileText">Student Name: {{payment.studentName}}</p>
 
-    <!--    <p class="profileText">Year: {{payment.year}}</p>-->
+    <!--    <p class="profileText">Year: Payment Type: {{payment.paymentType}}</p>-->
 
     <p class="profileText">Grade: {{payment.class}}</p>
 
@@ -167,15 +172,20 @@
 <div id="tableDiv">
     <table class="styled-table">
         <thead>
-        <!--        <tr>-->
-        <!--            <td id="termText">Payment: {{payment.paymentAmount}}</td>-->
-        <!--        </tr>-->
+<!--        <tr>-->
+<!--            <td id="termText">Payment Type: {{payment.paymentType}}</td>-->
+<!--        </tr>-->
         <tr>
             <td class="thUData">Payment Type</td>
         </tr>
+
         </thead>
+        <tr>
+            <td class="hideText">{{payment.paymentType}}</td> <!-- New 2.0-->
+
+        </tr>
         <tbody>
-        {{#each payment.paymentType}}
+                {{#each payment.paymentType}}
         <tr>
             <td class="tdUData">{{this}}</td>
         </tr>
@@ -184,15 +194,18 @@
     </table>
     <table class="styled-table">
         <thead>
-        <!--        <tr>-->
-        <!--            <td class="hideText">{{payment.term}}</td>-->
-        <!--        </tr>-->
         <tr>
-            <td class="thUData">Date Of Payment</td> <!--Date Of Payment-->
+            <td class="thUData">Payment Amount</td> <!--Date Of Payment-->
         </tr>
+
+
         </thead>
+        <tr>
+            <td class="hideText">{{payment.paidAmount}}</td>
+
+        </tr>
         <tbody>
-        {{#each payment.dateOFPayment}}
+        {{#each payment.paidAmount}}
         <tr>
             <td class="tdUData">{{this}}</td>
         </tr>
@@ -201,15 +214,21 @@
     </table>
     <table class="styled-table">
         <thead>
-        <!--        <tr>-->
-        <!--            <td class="hideText">{{result.term}}</td>-->
-        <!--        </tr>-->
+        <!--                <tr>-->
+        <!--                    <td class="hideText">{{payment.paidAmount}}</td>-->
+        <!--                </tr>-->
         <tr>
-            <td class="thUData">Payment Amount</td><!--Payment Amount  <-Grades-->
+            <td class="thUData">Date Of Payment</td><!--Payment Amount  <-Grades-->
+
         </tr>
+
         </thead>
+        <tr>
+            <td class="hideText">{{payment.dateOfPayment}}</td> <!-- New 2.0-->
+
+        </tr>
         <tbody>
-        {{#each payment.paymentAmount}}
+        {{#each payment.dateOfPayment}}
         <tr>
             <td class="tdUData">{{this}}</td>
         </tr>
