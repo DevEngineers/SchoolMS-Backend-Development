@@ -114,7 +114,7 @@ attendanceRouter.route('/generate/report')
             .populate("student")
             .then(
                 (attendance) => {
-                    generate("./Attendance Report.pdf",attendance)
+                    generate("C:/Users/amzum/Desktop/Attendance Report.pdf",attendance)
                     res.statusCode = 200;
                     res.setHeader("Content-Type", "application/json");
                     res.json(attendance);
