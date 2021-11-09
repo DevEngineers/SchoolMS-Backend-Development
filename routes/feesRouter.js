@@ -121,10 +121,11 @@ feesRouter.route('/generate/report')
     .post(async (req, res, next) => {
         let paymentFilter = req.body;
         console.log(paymentFilter)
-        await Payment.findOne({studentId:paymentFilter.studentId,class:paymentFilter.class,classType:paymentFilter.classType,paymentType:paymentFilter.paymentType})
+        await Payment.findOne({studentId:paymentFilter.studentId,class:paymentFilter.class,classType:paymentFilter.classType})
             .populate("classType")
             .populate("class")
             .populate('studentId')
+
             .then(
                 (payment) => {
                     generate("./output.pdf",payment)
